@@ -1,0 +1,468 @@
+/* CSS 变量定义 - 便于主题管理 */
+:root {
+    /* 毛玻璃效果变量 */
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    --glass-blur: 20px;
+    --glass-border-radius: 25px;
+    --window-border-radius: 15px; /* 为窗口和标题栏添加圆角 */
+    
+    /* 颜色主题 */
+    --primary-color: #4a6fff;
+    --primary-light: #6b85ff;
+    --primary-dark: #3a58e8;
+    --text-primary: #f5f7ff;
+    --text-secondary: #b0b7cc;
+    --bg-color: #1e293b;
+    --bg-light: #273449;
+    --accent-color: #ff6b6b;
+    
+    /* 动画变量 */
+    --animation-duration: 0.4s;
+    --animation-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+/* 全局样式 */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    overflow: hidden;
+}
+body {
+    color: var(--text-primary);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: var(--bg-color);
+}
+/* 背景装饰层 */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-image: 
+        radial-gradient(circle at 25% 20%, rgba(74, 111, 255, 0.1) 0%, transparent 40%),
+        radial-gradient(circle at 75% 80%, rgba(74, 111, 255, 0.1) 0%, transparent 40%);
+}
+/* 登录容器 - 添加高度过渡动画 */
+.auth-container {
+    width: 100%;
+    max-width: 420px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(150%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--glass-border-radius);
+    box-shadow: var(--glass-shadow);
+    padding: 30px;
+    padding-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+    animation: slideUp 0.6s ease-out;
+    transition: height var(--animation-duration) var(--animation-easing);
+}
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* 表单标题区域 */
+.auth-header {
+    text-align: center;
+    margin-bottom: 24px;
+    position: relative;
+}
+.auth-title {
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+    position: relative;
+    display: inline-block;
+}
+.auth-title::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 3px;
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+.auth-subtitle {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 10px;
+}
+/* 表单样式 */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: transform var(--animation-duration) var(--animation-easing);
+}
+/* 验证码输入组样式 */
+.verification-group {
+    display: flex;
+    gap: 10px;
+}
+.form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-left: 4px;
+}
+.form-input {
+    width: 100%;
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 15px;
+    transition: all var(--animation-duration) var(--animation-easing);
+}
+/* 验证码输入框宽度调整 */
+.verification-input {
+    flex: 2;
+}
+.form-input::placeholder {
+    color: var(--text-secondary);
+    opacity: 0.7;
+}
+.form-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 0 3px rgba(74, 111, 255, 0.15);
+}
+/* 验证码按钮样式 */
+.verify-btn {
+    flex: 1;
+    padding: 13px 16px;
+    background-color: rgba(74, 111, 255, 0.15);
+    color: var(--primary-color);
+    border: 1px solid rgba(74, 111, 255, 0.3);
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--animation-duration) var(--animation-easing);
+    white-space: nowrap;
+}
+.verify-btn:hover {
+    background-color: rgba(74, 111, 255, 0.25);
+    border-color: rgba(74, 111, 255, 0.4);
+}
+.verify-btn:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: var(--text-secondary);
+    border-color: rgba(255, 255, 255, 0.12);
+    cursor: not-allowed;
+}
+/* 记住密码和忘记密码 */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 4px;
+}
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.checkbox-input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}
+.forgot-link {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all var(--animation-duration) ease;
+    font-weight: 500;
+}
+.forgot-link:hover {
+    color: var(--primary-light);
+}
+/* 提交按钮 */
+.auth-button {
+    width: 100%;
+    padding: 13px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--animation-duration) var(--animation-easing);
+    position: relative;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.auth-button:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 111, 255, 0.3);
+}
+.auth-button:active {
+    transform: translateY(0);
+    background-color: var(--primary-dark);
+}
+.auth-button:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+/* 分割线 */
+.divider {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+}
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+}
+.divider span {
+    padding: 0 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 4px 14px;
+}
+/* 社交登录 */
+.social-login {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.social-button {
+    flex: 1;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--animation-duration) ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 14px;
+    font-weight: 500;
+}
+.social-button:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+}
+/* 表单切换链接 */
+.switch-link {
+    text-align: center;
+    margin-top: 24px;
+    color: var(--text-secondary);
+    font-size: 14px;
+    padding: 0 10px;
+}
+.switch-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all var(--animation-duration) ease;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+.switch-link a:hover {
+    color: var(--primary-light);
+    background-color: rgba(74, 111, 255, 0.1);
+}
+/* 表单显示/隐藏控制与动画 */
+.auth-form {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px;
+    padding-bottom: 40px;
+    transition: all var(--animation-duration) var(--animation-easing);
+    opacity: 0;
+    transform: translateX(30px);
+    pointer-events: none;
+}
+.auth-form.active {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: all;
+    position: relative;
+}
+.auth-form.exiting {
+    opacity: 0;
+    transform: translateX(-30px);
+}
+/* 登录方式切换 */
+.login-method {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+.method-option {
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all var(--animation-duration) ease;
+}
+.method-option.active {
+    color: var(--primary-color);
+    background-color: rgba(74, 111, 255, 0.1);
+}
+/* 响应式设计 */
+@media (max-width: 480px) {
+    .auth-container {
+        padding: 25px 15px;
+        padding-bottom: 35px;
+        margin: 10px;
+    }
+    .auth-form {
+        padding: 25px 15px;
+        padding-bottom: 35px;
+    }
+    .auth-title {
+        font-size: 24px;
+    }
+    .form-input {
+        padding: 12px 14px;
+    }
+    .verify-btn {
+        padding: 12px 10px;
+        font-size: 13px;
+    }
+    .auth-button {
+        padding: 12px;
+    }
+    .switch-link {
+        margin-top: 20px;
+        padding: 0 8px;
+    }
+}
+/* 减少动画的用户偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ===== 标题栏样式 ===== */
+.title-bar {
+    height: var(--titlebar-height);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    box-sizing: border-box;
+
+    /* 增强的毛玻璃效果 */
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(30px) saturate(180%);
+    -webkit-backdrop-filter: blur(30px) saturate(180%);
+
+    /* 顶部圆角，与窗口保持一致 */
+    border-radius: var(--window-border-radius) var(--window-border-radius) 0 0;
+
+    /* 布局 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 12px;
+
+    /* 移除边框，保持纯净感 */
+    border: none;
+
+    /* 禁止误选中文本 */
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* 整个标题栏可拖拽 */
+    -webkit-app-region: drag;
+}
+
+/* ===== 拖动区域 ===== */
+.drag-region {
+    padding-left: 12px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+/* 禁止拖拽区域（按钮等） */
+.no-drag {
+    -webkit-app-region: no-drag;
+}
+
+/* 应用标题文字 */
+.app-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== 标题栏按钮区域 ===== */
+.title-bar-right {
+    display: flex;
+    gap: 8px;
+}
+
+/* 标题栏按钮 */
+.title-btn {
+    width: 38px;
+    height: 26px;
+    border: none;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-app-region: no-drag;
+}

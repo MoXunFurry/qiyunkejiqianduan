@@ -1,0 +1,60 @@
+{
+  "name": "qiyun-tt-voice",
+  "version": "1.1.2",
+  "description": "旗云科技 - TT语音",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.qiyun.ttvoice",
+    "productName": "旗云科技TT语音",
+    "directories": {
+      "output": "../dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/*",
+      "!../dist/*"
+    ],
+    "extraResources": [
+      {
+        "from": "../backend/",
+        "to": "backend"
+      },
+      {
+        "from": "../resources/VBCABLE_Setup/",
+        "to": "VBCABLE_Setup"
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "旗云科技TT语音"
+    }
+  },
+  "devDependencies": {
+    "electron": "^25.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "dependencies": {
+    "sudo-prompt": "^9.2.1",
+    "ws": "^8.18.3"
+  }
+}

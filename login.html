@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录/注册 - 简洁风格</title>
+    <!-- 本地引入 Font Awesome CSS -->
+    <link rel="stylesheet" href="icon/Font_Awesome/css/all.css">
+    <link rel="stylesheet" href="css/login.css">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+</head>
+<body>
+    <!-- 自定义标题栏 -->
+    <div class="title-bar">
+        <div class="title-bar-left drag-region">
+            <span class="app-title">旗云科技—TT语音</span>
+        </div>
+        <div class="title-bar-right">
+            <button class="title-btn no-drag" id="minimize" title="最小化">🗕</button>
+            <button class="title-btn no-drag" id="maximize" title="最大化">🗖</button>
+            <button class="title-btn no-drag" id="fullscreen" title="全屏">⛶</button>
+            <button class="title-btn no-drag close" id="close" title="关闭">✖</button>
+        </div>
+    </div>
+
+    <div class="auth-container" id="auth-container">
+        <!-- 登录表单 -->
+        <div class="auth-form active" id="login-form">
+            <div class="auth-header">
+                <h1 class="auth-title">欢迎回来</h1>
+                <p class="auth-subtitle">请登录您的账户继续访问</p>
+            </div>
+            
+            <!-- 登录方式选择 -->
+            <div class="login-method">
+                <div class="method-option active" data-method="password">密码登录</div>
+                <div class="method-option" data-method="verify">验证码登录</div>
+            </div>
+            
+            <form class="form" id="login-form-inner" novalidate>
+                <!-- 邮箱输入 -->
+                <div class="form-group">
+                    <label class="form-label" for="login-email">邮箱地址</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="请输入您的邮箱地址">
+                </div>
+                
+                <!-- 密码登录区域 -->
+                <div id="password-login-area">
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">密码</label>
+                        <input type="password" id="login-password" class="form-input" placeholder="请输入您的密码" required>
+                    </div>
+                    <div class="form-options">
+                        <label class="checkbox-group">
+                            <input type="checkbox" id="remember" class="checkbox-input">
+                            记住我
+                        </label>
+                        <a href="#" class="forgot-link">忘记密码？</a>
+                    </div>
+                </div>
+                
+                <!-- 验证码登录区域 (默认隐藏) -->
+                <div id="verify-login-area" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">验证码</label>
+                        <div class="verification-group">
+                            <input type="text" id="login-vercode" name="login-vercode" class="form-input verification-input" placeholder="请输入验证码" required>
+                            <button type="button" class="verify-btn" id="login-get-vercode">
+                                获取验证码
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="auth-button">
+                    登录
+                </button>
+            </form>
+            <div class="divider">
+                <span>或者使用</span>
+            </div>
+            <div class="social-login">
+                <button class="social-button" id="google-login">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                </button>
+                <button class="social-button" id="github-login">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </button>
+            </div>
+            <div class="switch-link">
+                还没有账户？<a id="switch-to-register">立即注册</a>
+            </div>
+        </div>
+
+        <!-- 注册表单 -->
+        <div class="auth-form" id="register-form">
+            <div class="auth-header">
+                <h1 class="auth-title">创建账户</h1>
+                <p class="auth-subtitle">填写以下信息注册新账户</p>
+            </div>
+            <form class="form" id="register-form">
+                <div class="form-group">
+                    <label class="form-label" for="register-name">姓名</label>
+                    <input type="text" id="register-name" class="form-input" placeholder="请输入您的姓名" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-email">邮箱地址</label>
+                    <div class="verification-group">
+                        <input type="email" id="register-email" class="form-input verification-input" placeholder="请输入您的邮箱地址" required>
+                        <button type="button" class="verify-btn" id="register-get-vercode">
+                            获取验证码
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-vercode">验证码</label>
+                    <input type="text" id="register-vercode" class="form-input" placeholder="请输入验证码" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="register-password">密码</label>
+                    <input type="password" id="register-password" class="form-input" placeholder="请输入8位以上密码（含字母和数字）" required minlength="8">
+                </div>
+                <div class="form-options">
+                    <label class="checkbox-group">
+                        <input type="checkbox" id="terms" class="checkbox-input" required>
+                        我同意<a href="#" class="forgot-link">服务条款</a>和<a href="#" class="forgot-link">隐私政策</a>
+                    </label>
+                </div>
+                <button type="submit" class="auth-button">
+                    创建账户
+                </button>
+            </form>
+            <div class="divider">
+                <span>或者使用</span>
+            </div>
+            <div class="social-login">
+                <button class="social-button" id="google-login">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                    </svg>
+                    Google
+                </button>
+                <button class="social-button" id="github-login">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                </button>
+            </div>
+            <div class="switch-link">
+                已有账户？<a id="switch-to-login">立即登录</a>
+            </div>
+        </div>
+    </div>
+    <script src="JS/弹窗.js"></script>
+    <script src="JS/utils.js"></script>
+    <script src="JS/login.js"></script>
+</body>
+</html>
+</body>
+</html>
