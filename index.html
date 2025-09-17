@@ -71,7 +71,7 @@
                     >
                     <div class="user-details">
                         <h3 id="user-nickname">用户昵称</h3>
-                        <p>欢迎使用毛玻璃界面</p>
+                        <p id="user-welcome-text">欢迎使用毛玻璃界面</p>
                     </div>
                 </div>
                 <div class="animation-toggle">
@@ -397,10 +397,34 @@ contextBridge.exposeInMainWorld('electronAPI', {
                                 </div>
                                 <button class="btn btn-primary" onclick="changeNickname()">修改昵称</button>
                             </div>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>邮箱地址</h4>
+                                    <p id="user-email">未设置邮箱</p>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>用户ID</h4>
+                                    <p id="user-uuid" style="font-family: monospace; font-size: 12px; color: var(--text-secondary);">未知</p>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="settings-group">
                             <h3>📈 使用统计</h3>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>注册时间</h4>
+                                    <p id="registration-time">正在加载...</p>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>最后登录</h4>
+                                    <p id="last-login-time">正在加载...</p>
+                                </div>
+                            </div>
                             <div class="setting-item">
                                 <div class="setting-description">
                                     <h4>页面访问次数</h4>
@@ -418,6 +442,12 @@ contextBridge.exposeInMainWorld('electronAPI', {
                                 <div class="setting-description">
                                     <h4>上次访问时间</h4>
                                     <p id="last-visit-time">正在加载...</p>
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>会员到期时间</h4>
+                                    <p id="expiry-time">正在加载...</p>
                                 </div>
                             </div>
                         </div>
@@ -442,6 +472,63 @@ contextBridge.exposeInMainWorld('electronAPI', {
                                     <h4>窗口状态</h4>
                                     <p id="window-status">自定义标题栏已启用</p>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 主页 -->
+                <div class="page active" id="page-home">
+                    <h1 class="page-title">欢迎使用毛玻璃界面</h1>
+                    <div class="page-content">
+                        <div class="settings-group">
+                            <h3>👋 用户信息</h3>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>当前用户</h4>
+                                    <p id="home-user-name">正在加载...</p>
+                                </div>
+                                <img 
+                                    id="home-user-avatar"
+                                    src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='24' fill='%23667eea'/%3E%3Ctext x='24' y='32' text-anchor='middle' fill='white' font-size='20' font-family='sans-serif'%3E用%3C/text%3E%3C/svg%3E"
+                                    alt="用户头像" 
+                                    style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;"
+                                >
+                            </div>
+                            <div class="setting-item">
+                                <div class="setting-description">
+                                    <h4>会员状态</h4>
+                                    <p id="home-member-status">正在检查...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <p>这是一个采用现代毛玻璃（Glassmorphism）设计风格的单页应用界面，现已集成自定义标题栏。</p>
+                        <p>主要特性包括：</p>
+                        <div class="feature-grid">
+                            <div class="feature-card">
+                                <h3>🎨 毛玻璃效果</h3>
+                                <p>采用backdrop-filter实现的真实毛玻璃效果，支持透明背景，完美适配桌面透明窗口。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>🚀 流畅动画</h3>
+                                <p>页面切换采用硬件加速的滑入滑出动画，可根据用户偏好和设备性能自动调整。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>♿ 无障碍支持</h3>
+                                <p>完整的键盘导航支持，语义化HTML标签，ARIA属性，支持屏幕阅读器。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>📱 响应式设计</h3>
+                                <p>针对常见PC分辨率优化，在1366×768到1920×1080范围内完美显示。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>🖼️ 自定义标题栏</h3>
+                                <p>无边框窗口设计，自定义窗口控制按钮，支持拖拽调整大小，完美集成Electron应用。</p>
+                            </div>
+                            <div class="feature-card">
+                                <h3>⚡ 性能优化</h3>
+                                <p>仅使用GPU加速属性，避免布局回流，首屏渲染优化，轻量高效。</p>
                             </div>
                         </div>
                     </div>

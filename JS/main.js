@@ -76,8 +76,8 @@ class GlassApp {
             // 监听 WebSocket 消息事件
             window.electronAPI.wsOnMessage((msg) => {
                 console.log('[INFO] 收到 WebSocket 消息:', msg);
-                if (msg.type === 'GetUserData' && msg.code === 200) {
-                    const userData = msg.UserData;
+                if (msg.type === 'ws-message' && msg.data && msg.data.type === 'GetUserData' && msg.data.code === 200) {
+                    const userData = msg.data.UserData;
                     const { name, avatar } = userData;
                     console.log('[INFO] 获取用户数据成功:', userData);
 
@@ -96,6 +96,9 @@ class GlassApp {
                         localStorage.setItem('userAvatar', avatar);
                         console.log('[INFO] 用户头像已更新:', avatar);
                     }
+
+                    // 更新其他用户信息
+                    this.updateUserProfile(userData);
                 }
             });
         }
@@ -294,6 +297,78 @@ class GlassApp {
         this.updateAnimationPreference();
     }
 
+    updateUserProfile(userData) {
+        try {
+            // 更新邮箱信息（如果页面有显示的话）
+            const emailElements = document.querySelectorAll('#user-email, .user-email');
+            emailElements.forEach(el => {
+                el.textContent = userData.email || '未设置邮箱';
+            });
+
+            // 更新用户UUID（用于调试或显示）
+            const uuidElements = document.querySelectorAll('#user-uuid, .user-uuid');
+            uuidElements.forEach(el => {
+                el.textContent = userData.UUID || '未知';
+            });
+
+            // 更新注册时间
+            const regTimeElements = document.querySelectorAll('#registration-time, .registration-time');
+            regTimeElements.forEach(el => {
+                el.textContent = userData.time || '未知';
+            });
+
+            // 更新最后登录时间
+            const lastLoginElements = document.querySelectorAll('#last-login-time, .last-login-time');
+            lastLoginElements.forEach(el => {
+                el.textContent = userData.last_login || '未知';
+            });
+
+            // 更新会员到期时间
+            const expiryElements = document.querySelectorAll('#expiry-time, .expiry-time');
+            expiryElements.forEach(el => {
+                el.textContent = userData.expiry_time || '未知';
+            });
+
+            // 更新主页用户信息
+            const homeUserName = document.getElementById('home-user-name');
+            if (homeUserName) {
+                homeUserName.textContent = userData.name || '未知用户';
+            }
+
+            const homeUserAvatar = document.getElementById('home-user-avatar');
+            if (homeUserAvatar && userData.avatar) {
+                homeUserAvatar.src = userData.avatar;
+            }
+
+            // 检查会员状态
+            const memberStatus = document.getElementById('home-member-status');
+            if (memberStatus) {
+                const expiryDate = new Date(userData.expiry_time);
+                const now = new Date();
+                if (expiryDate > now) {
+                    const daysLeft = Math.ceil((expiryDate - now) / (1000 * 60 * 60 * 24));
+                    memberStatus.textContent = `会员有效 (剩余${daysLeft}天)`;
+                    memberStatus.style.color = '#10B981'; // 绿色
+                } else {
+                    memberStatus.textContent = '会员已过期';
+                    memberStatus.style.color = '#EF4444'; // 红色
+                }
+            }
+
+            // 更新欢迎文本
+            const welcomeText = document.getElementById('user-welcome-text');
+            if (welcomeText) {
+                welcomeText.textContent = `欢迎回来，${userData.name || '用户'}！`;
+            }
+
+            // 保存完整用户数据到本地存储
+            localStorage.setItem('userData', JSON.stringify(userData));
+
+            console.log('[INFO] 用户资料已全面更新');
+        } catch (error) {
+            console.error('[ERROR] 更新用户资料时出错:', error);
+        }
+    }
     toggleGlassEffect() {
         const body = document.body;
         const toggle = document.getElementById('glass-effect-toggle');
